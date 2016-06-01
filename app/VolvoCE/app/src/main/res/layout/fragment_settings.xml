@@ -18,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="User Settings"
-        android:textSize="40dp"
+        android:text="Settings"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:paddingTop="10dp"/>
 
@@ -27,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Device"
-        android:textSize="16dp"
+        android:text="This Device"
+        android:textSize="16sp"
         android:paddingTop="10dp"
         android:textColor="@color/colorPrimaryDark"/>
 
@@ -38,14 +38,14 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="mac address"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Bluetooth Status"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:paddingTop="10dp"
         android:textColor="@color/colorPrimaryDark"/>
 
@@ -55,15 +55,15 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Not connected"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/gps_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="GPS Status"
-        android:textSize="16dp"
+        android:text="Location Status"
+        android:textSize="16sp"
         android:paddingTop="10dp"
         android:textColor="@color/colorPrimaryDark"/>
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="coordinates"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/gps_timestamp"
@@ -81,26 +81,31 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="time"
-        android:textSize="10dp" />
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/connect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Connect"
-        android:layout_gravity="center_horizontal|bottom"/>
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Connect to hard hat"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:id="@+id/a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="65dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:text="Alert"
-        android:layout_gravity="center_horizontal|bottom"/>
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:id="@+id/o"
@@ -111,7 +116,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:text="Alert off"
-        android:layout_gravity="center_horizontal|bottom"/>
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"/>
 
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -76,7 +77,7 @@ public class ControlActivity extends AppCompatActivity {
         new Handler().postDelayed(getLocation, LOCATION_UPDATE_RATE);
 
         bleHelper = BluetoothHelper.getInstance(this); // Register/start ble scan
-        bleHelper.startScan();
+        //bleHelper.startScan(); // TODO: change to manual connection with selected MAC address
 
         // Make sure we have permissions set up
         if (ActivityCompat.checkSelfPermission(this,
@@ -172,9 +173,12 @@ public class ControlActivity extends AppCompatActivity {
         public void run() {
             if(alert) {
                 Log.i(TAG, "Playing alert sound!");
-                Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alert);
-                r.play();
+                MediaPlayer mp = MediaPlayer.create(getApplication(), R.raw.alert); // sound is inside res/raw/mysound
+                mp.start();
+
+//                Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alert);
+//                r.play();
                 new Handler().postDelayed(playAlertSound, ALERT_DELAY_TIME);
             }
         }

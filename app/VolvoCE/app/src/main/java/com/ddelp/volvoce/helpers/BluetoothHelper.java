@@ -25,8 +25,9 @@ public class BluetoothHelper {
     private static BluetoothHelper sInstance;
 
     private static final String TAG = "BluetoothHelper";
-    //private static final String defaultAddr = "FF:48:95:76:34:2A"; // MAC address of old hard hat in loft
     private static final String defaultAddr = "F4:A4:9E:FC:CE:05"; // MAC address of new hard hat
+
+    private static String connectAddr;
 
     BluetoothGattCallback gattCallback;
     BluetoothAdapter.LeScanCallback leScanCallback;
@@ -59,13 +60,14 @@ public class BluetoothHelper {
     }
 
     private BluetoothHelper(final Context context, final String destAddr) {
+        connectAddr = destAddr;
         this.connectionListener = null;
         // Register the lescan
         leScanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 Log.d(TAG, "Found a device! " + device.getAddress());
-                if (device.getAddress().equals(destAddr)) {
+                if (device.getAddress().equals(connectAddr)) {
                     // Found the device we are looking for
                     Log.d(TAG, "Found our device!");
                     stopScan();
@@ -161,6 +163,14 @@ public class BluetoothHelper {
      * Start LE scan for our bluetooth module
      */
     public void startScan() {
+        bleAdapter.startLeScan(leScanCallback);
+    }
+
+    /**
+     * Start LE scan for our bluetooth module (given address)
+     */
+    public void startScan(String address) {
+        connectAddr = address;
         bleAdapter.startLeScan(leScanCallback);
     }
 

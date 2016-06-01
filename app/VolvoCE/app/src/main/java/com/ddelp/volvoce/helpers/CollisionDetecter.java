@@ -5,9 +5,6 @@ import android.util.Log;
 
 import com.ddelp.volvoce.objects.Machine;
 import com.ddelp.volvoce.objects.Worker;
-import com.firebase.client.Firebase;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,14 +14,18 @@ import java.util.Map;
 public class CollisionDetecter {
 
     private static final String TAG = "CollisionDetecter";
-    private Firebase firebaseRef;
-    private static final double ALERT_THRESHOLD = 0.0001; //Get actual value
+    private double alertThreshold = 0.0001;
 
     public CollisionDetecter(Context context) {
     }
 
+    public void setAlertThreshold(double threshold) {
+        Log.i(TAG, "New alert threshold set: " + threshold);
+        alertThreshold = threshold;
+    }
+
     public Map<String, Boolean> detectCollisions(Map<String,Worker> workers,
-                                              Map<String,Machine> machines) {
+                                                 Map<String,Machine> machines) {
 
         Map<String, Boolean> collisionIDs = new HashMap<>();
 
@@ -32,20 +33,16 @@ public class CollisionDetecter {
             String[] workerGPS = worker.getGPS().split(",");
             float workerLat = Float.parseFloat(workerGPS[0]);
             float workerLong = Float.parseFloat(workerGPS[1]);
-//            Log.i(TAG, "Worker Location: " + workerLat + ", " + workerLong);
             for(Machine machine : machines.values()) {
                 String[] machineGPS = machine.getGPS().split(",");
                 float machineLat = Float.parseFloat(machineGPS[0]);
                 float machineLong = Float.parseFloat(machineGPS[1]);
-//                Log.i(TAG, "Machine Location: " + machineLat + ", " + machineLong);
                 double deltaLat = Math.abs(workerLat - machineLat);
                 double deltaLong = Math.abs(workerLong - machineLong);
-//                Log.i(TAG, "Delta: " + deltaLat + ", " + deltaLong);
                 double distance = Math.sqrt(Math.pow(deltaLat,2) + Math.pow(deltaLong,2));
-//                Log.i(TAG, "Calculated distance: WorkerID: " + worker.getID() + "  MachineID: "
-//                        + machine.getID() + " Distance: " + distance);
-                if(distance <= ALERT_THRESHOLD) {
-                    Log.i(TAG, "Collision detected! Worker:" + worker.getID() + " Machine: " + machine.getID());
+                if(distance <= alertThreshold) {
+                    Log.i(TAG, "Collision detected! Worker:" + worker.getID()
+                            + " Machine: " + machine.getID());
                     collisionIDs.put(worker.getID(), true);
                     collisionIDs.put(machine.getID(), true);
                 }
@@ -53,8 +50,5 @@ public class CollisionDetecter {
         }
         return collisionIDs;
     }
-
-
-
 }
 

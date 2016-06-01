@@ -3,7 +3,12 @@ package com.ddelp.volvoce.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ddelp.volvoce.R;
 import com.ddelp.volvoce.SplashActivity;
 import com.ddelp.volvoce.helpers.BluetoothHelper;
@@ -40,7 +46,6 @@ public class SettingsFragment extends Fragment{
 
     LocationHelper locationHelper;
     LocationHelper.GPSListener locationListener;
-
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -96,7 +101,21 @@ public class SettingsFragment extends Fragment{
                 if(ble.isConnected()) {
                     ble.disconnect();
                 } else {
-                    ble.startScan();
+                    new MaterialDialog.Builder(getActivity())
+                            .title("Select Hard Hat")
+                            .items(R.array.hard_hats)
+                            .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                @Override
+                                public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                    String address = text.toString();
+                                    address = address.split(" ")[1]; // Assumes correct formatting in arrays.xml
+                                    Log.i(TAG, "Selected BLE module: " + address);
+                                    ble.startScan(address);
+                                    return true;
+                                }
+                            })
+                            .positiveText("Connect")
+                            .show();
                 }
             }
         });
@@ -107,6 +126,9 @@ public class SettingsFragment extends Fragment{
                 String testPacket = "A";
                 Log.i(TAG, "Sending alarm packet: ");
                 ble.sendData(testPacket);
+
+                MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.alert); // sound is inside res/raw/mysound
+                mp.start();
             }
         });
 
@@ -149,9 +171,9 @@ public class SettingsFragment extends Fragment{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String status = "GPS Status: " + location.getProvider();
+                String status = "Location Source: " + location.getProvider();
                 String here = location.getLatitude() + ", " + location.getLongitude();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                 String time = sdf.format(new Date());
                 vGPSStatus.setText(status);
                 vGPSLocation.setText(here);
@@ -159,6 +181,5 @@ public class SettingsFragment extends Fragment{
             }
         });
     }
-
 
 }

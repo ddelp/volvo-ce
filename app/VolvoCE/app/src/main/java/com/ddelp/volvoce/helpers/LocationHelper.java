@@ -145,8 +145,8 @@ public class LocationHelper extends Service {
     LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {
             if(isBestLocation(location)) {
-                Log.i(TAG, "New Best GPS location: " +
-                        location.getLatitude() + ", " + location.getLongitude());
+//                Log.i(TAG, "New Best GPS location: " +
+//                        location.getLatitude() + ", " + location.getLongitude());
                 currentBestLocation = location;
                 if(listener != null) {
                     listener.onGPSChanged(location);
@@ -161,8 +161,8 @@ public class LocationHelper extends Service {
     LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
             if(isBestLocation(location)) {
-                Log.i(TAG, "New Best Network location: " +
-                        location.getLatitude() + ", " + location.getLongitude());
+//                Log.i(TAG, "New Best Network location: " +
+//                        location.getLatitude() + ", " + location.getLongitude());
                 currentBestLocation = location;
                 if(listener != null) {
                     listener.onGPSChanged(location);

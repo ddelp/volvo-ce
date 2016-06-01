@@ -30,4 +30,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile 'com.vistrav:ask:2.1'
+
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
 }

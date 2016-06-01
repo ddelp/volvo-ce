@@ -105,6 +105,10 @@ public class WorksiteViewActivity extends AppCompatActivity {
         workers = new HashMap<>();
         machines = new HashMap<>();
         collisionDetecter = new CollisionDetecter(this);
+        Firebase alertThresholdRef = firebaseRef.child("alert_threshold"); // TODO: Test this
+        if(alertThresholdRef != null) {
+            alertThresholdRef.addValueEventListener(alertThresholdListener);
+        }
         new Handler().postDelayed(checkCollisions, COLLISION_DETECTION_RATE);
     }
 
@@ -223,6 +227,26 @@ public class WorksiteViewActivity extends AppCompatActivity {
         @Override
         public void onCancelled(FirebaseError firebaseError) {
             Log.i(TAG, "Couldn't download machine");
+            showErrorDialog(firebaseError.toString());
+        }
+    };
+
+    /**
+     * alertThresholdListener
+     */
+    ValueEventListener alertThresholdListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if(dataSnapshot.getValue() == null) {
+                Log.i(TAG, "No value found in alert threshold in Firebase");
+                return;
+            }
+            collisionDetecter.setAlertThreshold ((double) dataSnapshot.getValue());
+        }
+
+        @Override
+        public void onCancelled(FirebaseError firebaseError) {
+            Log.i(TAG, "Couldn't download alert threshold");
             showErrorDialog(firebaseError.toString());
         }
     };

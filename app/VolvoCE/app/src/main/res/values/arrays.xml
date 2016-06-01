@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="hard_hats">
+        <item>A F4:A4:9E:FC:CE:05</item>
+        <item>B FF:48:95:76:34:2A</item>
+        <item>C D6:E2:F8:CA:3C:CC</item>
+    </string-array>
+</resources>
