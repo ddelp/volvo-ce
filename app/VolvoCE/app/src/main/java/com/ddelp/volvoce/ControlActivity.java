@@ -23,7 +23,6 @@ import android.util.Log;
 import com.ddelp.volvoce.fragments.SettingsFragment;
 import com.ddelp.volvoce.fragments.WorksiteListFragment;
 import com.ddelp.volvoce.helpers.BluetoothHelper;
-import com.ddelp.volvoce.helpers.GPSHelper;
 import com.ddelp.volvoce.helpers.LocationHelper;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -159,7 +158,7 @@ public class ControlActivity extends AppCompatActivity {
                 double longitude = myLocation.getLongitude();
                 String gps = latitude + "," + longitude;
                 myGPSRef.setValue(gps);
-                Log.i(TAG, "Sending users location to firebase: " + gps);
+                //Log.i(TAG, "Sending users location to firebase: " + gps);
             }
             new Handler().postDelayed(getLocation, LOCATION_UPDATE_RATE);
         }

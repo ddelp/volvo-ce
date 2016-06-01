@@ -25,7 +25,8 @@ public class BluetoothHelper {
     private static BluetoothHelper sInstance;
 
     private static final String TAG = "BluetoothHelper";
-    private static final String defaultAddr = "FF:48:95:76:34:2A"; // MAC address of hard hat in loft
+    //private static final String defaultAddr = "FF:48:95:76:34:2A"; // MAC address of old hard hat in loft
+    private static final String defaultAddr = "F4:A4:9E:FC:CE:05"; // MAC address of new hard hat
 
     BluetoothGattCallback gattCallback;
     BluetoothAdapter.LeScanCallback leScanCallback;
