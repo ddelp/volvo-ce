@@ -175,10 +175,6 @@ public class ControlActivity extends AppCompatActivity {
                 Log.i(TAG, "Playing alert sound!");
                 MediaPlayer mp = MediaPlayer.create(getApplication(), R.raw.alert); // sound is inside res/raw/mysound
                 mp.start();
-
-//                Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alert);
-//                r.play();
                 new Handler().postDelayed(playAlertSound, ALERT_DELAY_TIME);
             }
         }
@@ -190,6 +186,10 @@ public class ControlActivity extends AppCompatActivity {
     ValueEventListener alertListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            if(dataSnapshot.getValue() == null) {
+                Log.i(TAG, "Alert is null");
+                return;
+            }
             alert = (boolean)dataSnapshot.getValue();
             if(alert) {
                 Log.i(TAG, "Alarm Status: on");
